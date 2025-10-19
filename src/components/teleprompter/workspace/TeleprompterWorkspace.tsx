@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { AnimatePresence, motion } from "framer-motion"
+import * as React from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Minus,
   Moon,
@@ -13,40 +13,51 @@ import {
   SidebarClose,
   SidebarOpen,
   Sparkles,
-  Sun
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Slider } from "@/components/ui/slider"
-import { TeleprompterDisplay } from "@/components/teleprompter/TeleprompterDisplay"
-import { SpeechSelector } from "@/components/speech/SpeechSelector"
+  Sun,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Slider } from "@/components/ui/slider";
+import { TeleprompterDisplay } from "@/components/teleprompter/TeleprompterDisplay";
+import { SpeechSelector } from "@/components/speech/SpeechSelector";
 import {
   useTeleprompterController,
-  type TeleprompterController
-} from "@/components/teleprompter/hooks/useTeleprompterController"
-import { cn } from "@/lib/utils"
-import type { Speech } from "@/lib/types"
+  type TeleprompterController,
+} from "@/components/teleprompter/hooks/useTeleprompterController";
+import { cn } from "@/lib/utils";
+import type { Speech } from "@/lib/types";
 
 export function TeleprompterWorkspace() {
-  const controller = useTeleprompterController()
-  const [isSpeechSelectorMounted, setIsSpeechSelectorMounted] = React.useState(true)
+  const controller = useTeleprompterController();
+  const [isSpeechSelectorMounted, setIsSpeechSelectorMounted] =
+    React.useState(true);
 
   React.useEffect(() => {
     if (controller.showSpeechSelector) {
-      setIsSpeechSelectorMounted(true)
+      setIsSpeechSelectorMounted(true);
     }
-  }, [controller.showSpeechSelector])
+  }, [controller.showSpeechSelector]);
 
   React.useEffect(() => {
     if (typeof document === "undefined") {
-      return
+      return;
     }
-    document.documentElement.setAttribute("data-theme", controller.teleprompterTheme)
-  }, [controller.teleprompterTheme])
+    document.documentElement.setAttribute(
+      "data-theme",
+      controller.teleprompterTheme,
+    );
+  }, [controller.teleprompterTheme]);
 
-  const gridColumns = controller.showSpeechSelector || isSpeechSelectorMounted
-    ? "lg:grid-cols-[minmax(0,1fr)_400px]"
-    : "lg:grid-cols-1"
+  const gridColumns =
+    controller.showSpeechSelector || isSpeechSelectorMounted
+      ? "lg:grid-cols-[minmax(0,1fr)_340px] xl:grid-cols-[minmax(0,1fr)_360px]"
+      : "lg:grid-cols-1";
 
   return (
     <div className="relative min-h-screen transition-theme">
@@ -69,7 +80,11 @@ export function TeleprompterWorkspace() {
           >
             <AnimatePresence mode="wait">
               <motion.div
-                key={controller.selectedSpeech ? `teleprompter-${controller.selectedSpeech.id}` : "teleprompter-empty"}
+                key={
+                  controller.selectedSpeech
+                    ? `teleprompter-${controller.selectedSpeech.id}`
+                    : "teleprompter-empty"
+                }
                 layout
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -90,16 +105,18 @@ export function TeleprompterWorkspace() {
 
             <AnimatePresence mode="wait">
               <motion.div
-                key={controller.selectedSpeech ? `controls-${controller.selectedSpeech.id}` : "controls-empty"}
+                key={
+                  controller.selectedSpeech
+                    ? `controls-${controller.selectedSpeech.id}`
+                    : "controls-empty"
+                }
                 layout
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -12, scale: 0.98 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
               >
-                <ControlsCard
-                  controller={controller}
-                />
+                <ControlsCard controller={controller} />
               </motion.div>
             </AnimatePresence>
 
@@ -121,7 +138,7 @@ export function TeleprompterWorkspace() {
           <AnimatePresence
             mode="popLayout"
             onExitComplete={() => {
-              setIsSpeechSelectorMounted(false)
+              setIsSpeechSelectorMounted(false);
             }}
           >
             {controller.showSpeechSelector && (
@@ -141,8 +158,8 @@ export function TeleprompterWorkspace() {
                     transition: {
                       type: "spring",
                       stiffness: 240,
-                      damping: 26
-                    }
+                      damping: 26,
+                    },
                   },
                   exit: {
                     opacity: 0,
@@ -150,9 +167,9 @@ export function TeleprompterWorkspace() {
                     y: 16,
                     transition: {
                       duration: 0.2,
-                      ease: "easeInOut"
-                    }
-                  }
+                      ease: "easeInOut",
+                    },
+                  },
                 }}
               >
                 <LibraryCard
@@ -168,16 +185,16 @@ export function TeleprompterWorkspace() {
         </div>
       </main>
     </div>
-  )
+  );
 }
 
 interface WorkspaceHeaderProps {
-  fontSize: number
-  adjustFontSize: (delta: number) => void
-  teleprompterTheme: TeleprompterController["teleprompterTheme"]
-  toggleTeleprompterTheme: () => void
-  showSpeechSelector: boolean
-  toggleSpeechSelector: () => void
+  fontSize: number;
+  adjustFontSize: (delta: number) => void;
+  teleprompterTheme: TeleprompterController["teleprompterTheme"];
+  toggleTeleprompterTheme: () => void;
+  showSpeechSelector: boolean;
+  toggleSpeechSelector: () => void;
 }
 
 function WorkspaceHeader({
@@ -186,10 +203,13 @@ function WorkspaceHeader({
   teleprompterTheme,
   toggleTeleprompterTheme,
   showSpeechSelector,
-  toggleSpeechSelector
+  toggleSpeechSelector,
 }: WorkspaceHeaderProps) {
-  const ThemeToggleIcon = teleprompterTheme === "dark" ? Sun : Moon
-  const themeToggleLabel = teleprompterTheme === "dark" ? "Switch to light theme" : "Switch to dark theme"
+  const ThemeToggleIcon = teleprompterTheme === "dark" ? Sun : Moon;
+  const themeToggleLabel =
+    teleprompterTheme === "dark"
+      ? "Switch to light theme"
+      : "Switch to dark theme";
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-secondary/70 backdrop-blur-xl transition-theme">
@@ -254,7 +274,11 @@ function WorkspaceHeader({
                 className="h-7 gap-1 px-2 text-xs"
                 onClick={toggleSpeechSelector}
               >
-                {showSpeechSelector ? <SidebarClose className="size-3" /> : <SidebarOpen className="size-3" />}
+                {showSpeechSelector ? (
+                  <SidebarClose className="size-3" />
+                ) : (
+                  <SidebarOpen className="size-3" />
+                )}
                 <span>{showSpeechSelector ? "Hide" : "Show"}</span>
               </Button>
             </div>
@@ -320,45 +344,53 @@ function WorkspaceHeader({
               className="gap-1.5 text-xs sm:gap-2 sm:text-sm"
               onClick={toggleSpeechSelector}
             >
-              {showSpeechSelector ? <SidebarClose className="size-3 sm:size-4" /> : <SidebarOpen className="size-3 sm:size-4" />}
-              <span className="hidden sm:inline">{showSpeechSelector ? "Hide library" : "Show library"}</span>
-              <span className="sm:hidden">{showSpeechSelector ? "Hide" : "Show"}</span>
+              {showSpeechSelector ? (
+                <SidebarClose className="size-3 sm:size-4" />
+              ) : (
+                <SidebarOpen className="size-3 sm:size-4" />
+              )}
+              <span className="hidden sm:inline">
+                {showSpeechSelector ? "Hide library" : "Show library"}
+              </span>
+              <span className="sm:hidden">
+                {showSpeechSelector ? "Hide" : "Show"}
+              </span>
             </Button>
           </div>
         </div>
       </div>
     </header>
-  )
+  );
 }
 
 interface ControlsCardProps {
-  controller: TeleprompterController
+  controller: TeleprompterController;
 }
 
 function ControlsCard({ controller }: ControlsCardProps) {
-  const hasSpeech = Boolean(controller.selectedSpeech)
+  const hasSpeech = Boolean(controller.selectedSpeech);
 
   const handleProgressSliderChange = React.useCallback(
     (value: number[]) => {
-      const [percent] = value
+      const [percent] = value;
       if (typeof percent !== "number") {
-        return
+        return;
       }
-      controller.seekToPercent(percent)
+      controller.seekToPercent(percent);
     },
-    [controller]
-  )
+    [controller],
+  );
 
   const handleSpeedChange = React.useCallback(
     (value: number[]) => {
-      const [nextSpeed] = value
+      const [nextSpeed] = value;
       if (typeof nextSpeed !== "number") {
-        return
+        return;
       }
-      controller.updateScrollSpeed(nextSpeed)
+      controller.updateScrollSpeed(nextSpeed);
     },
-    [controller]
-  )
+    [controller],
+  );
 
   return (
     <Card className="border border-border/60 bg-card/80 backdrop-blur-lg transition-theme">
@@ -376,14 +408,19 @@ function ControlsCard({ controller }: ControlsCardProps) {
               show: {
                 opacity: 1,
                 transition: {
-                  staggerChildren: 0.1
-                }
-              }
+                  staggerChildren: 0.1,
+                },
+              },
             }}
             initial="hidden"
             animate="show"
           >
-            <motion.div variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}>
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 10 },
+                show: { opacity: 1, y: 0 },
+              }}
+            >
               <Button
                 onClick={controller.resetPlayback}
                 variant="outline"
@@ -396,7 +433,12 @@ function ControlsCard({ controller }: ControlsCardProps) {
               </Button>
             </motion.div>
 
-            <motion.div variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}>
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 10 },
+                show: { opacity: 1, y: 0 },
+              }}
+            >
               <Button
                 onClick={controller.togglePlayback}
                 disabled={!hasSpeech}
@@ -417,7 +459,12 @@ function ControlsCard({ controller }: ControlsCardProps) {
               </Button>
             </motion.div>
 
-            <motion.div variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}>
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 10 },
+                show: { opacity: 1, y: 0 },
+              }}
+            >
               <Button
                 onClick={controller.selectRandomSpeech}
                 variant="outline"
@@ -449,8 +496,11 @@ function ControlsCard({ controller }: ControlsCardProps) {
                 </p>
                 <p className="text-xs">
                   {controller.selectedSpeech.wordCount} words ·{" "}
-                  {Math.floor(controller.selectedSpeech.estimatedDuration / 60)}:
-                  {(controller.selectedSpeech.estimatedDuration % 60).toString().padStart(2, "0")}
+                  {Math.floor(controller.selectedSpeech.estimatedDuration / 60)}
+                  :
+                  {(controller.selectedSpeech.estimatedDuration % 60)
+                    .toString()
+                    .padStart(2, "0")}
                 </p>
               </motion.div>
             )}
@@ -512,9 +562,9 @@ function ControlsCard({ controller }: ControlsCardProps) {
                 show: {
                   opacity: 1,
                   transition: {
-                    staggerChildren: 0.1
-                  }
-                }
+                    staggerChildren: 0.1,
+                  },
+                },
               }}
               initial="hidden"
               animate="show"
@@ -536,17 +586,17 @@ function ControlsCard({ controller }: ControlsCardProps) {
                 subtitle="Word highlight aligns to this level"
               />
             </motion.div>
-            )}
+          )}
         </AnimatePresence>
       </CardContent>
     </Card>
-  )
+  );
 }
 
 interface StatBlockProps {
-  title: string
-  primary: string
-  subtitle: string
+  title: string;
+  primary: string;
+  subtitle: string;
 }
 
 function StatBlock({ title, primary, subtitle }: StatBlockProps) {
@@ -563,17 +613,19 @@ function StatBlock({ title, primary, subtitle }: StatBlockProps) {
       </p>
       <p className="text-[10px] text-muted-foreground sm:text-xs">{subtitle}</p>
     </motion.div>
-  )
+  );
 }
 
 function WelcomeCard() {
   return (
     <Card className="border border-border/60 bg-card/80 backdrop-blur-lg">
       <CardContent className="space-y-3 p-4 text-center sm:space-y-4 sm:p-6">
-        <h3 className="text-base font-semibold text-foreground sm:text-lg">Welcome to SpeechDrill</h3>
+        <h3 className="text-base font-semibold text-foreground sm:text-lg">
+          Welcome to SpeechDrill
+        </h3>
         <p className="mx-auto max-w-2xl text-xs text-muted-foreground sm:text-sm">
-          Pick a difficulty, open the library, and select a script to begin. Adjust WPM and font size, then
-          rehearse until the bar reaches 100%.
+          Pick a difficulty, open the library, and select a script to begin.
+          Adjust WPM and font size, then rehearse until the bar reaches 100%.
         </p>
         <div className="flex flex-wrap justify-center gap-3 text-xs text-muted-foreground sm:gap-4 sm:text-sm">
           <div className="flex items-center gap-1.5 sm:gap-2">
@@ -591,26 +643,29 @@ function WelcomeCard() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
 
 interface LibraryCardProps {
-  selectedSpeech: Speech | null
-  selectedDifficulty: TeleprompterController["selectedDifficulty"]
-  onSpeechSelect: (speech: Speech) => void
+  selectedSpeech: Speech | null;
+  selectedDifficulty: TeleprompterController["selectedDifficulty"];
+  onSpeechSelect: (speech: Speech) => void;
 }
 
 function LibraryCard({
   selectedSpeech,
   selectedDifficulty,
-  onSpeechSelect
+  onSpeechSelect,
 }: LibraryCardProps) {
   return (
     <Card className="border border-border/60 bg-card/80 backdrop-blur-lg py-0">
       <CardHeader className="px-4 py-4 sm:px-6 sm:py-5">
-        <CardTitle className="text-lg font-semibold text-foreground sm:text-xl">Speech Library</CardTitle>
+        <CardTitle className="text-lg font-semibold text-foreground sm:text-xl">
+          Speech Library
+        </CardTitle>
         <CardDescription className="text-xs text-muted-foreground sm:text-sm">
-          Filter by difficulty or category, preview summaries, and pick the script that matches your session.
+          Filter by difficulty or category, preview summaries, and pick the
+          script that matches your session.
         </CardDescription>
       </CardHeader>
       <CardContent className="px-4 pb-4 sm:px-6 sm:pb-5">
@@ -621,7 +676,7 @@ function LibraryCard({
         />
       </CardContent>
     </Card>
-  )
+  );
 }
 
 function SessionNotesCard() {
@@ -638,5 +693,5 @@ function SessionNotesCard() {
         </ul>
       </CardContent>
     </Card>
-  )
+  );
 }
