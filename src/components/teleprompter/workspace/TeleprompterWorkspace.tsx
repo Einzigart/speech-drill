@@ -216,12 +216,12 @@ function WorkspaceHeader({
       <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-3 sm:gap-4 sm:px-6 sm:py-5 lg:flex-row lg:items-center lg:justify-between">
         <div className="space-y-1 sm:space-y-2">
           <div className="flex items-center justify-between">
-            <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.15em] text-primary sm:gap-2 sm:px-3 sm:py-1 sm:text-xs sm:tracking-[0.3em]">
+            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.15em] text-primary sm:gap-3 sm:px-3 sm:py-1 sm:text-xs sm:tracking-[0.3em]">
               <Sparkles className="size-2.5 sm:size-4" />
               <span className="hidden sm:inline">Practice studio</span>
               <span className="sm:hidden">Studio</span>
             </span>
-            <div className="flex items-center gap-1.5 lg:hidden">
+            <div className="flex items-center gap-2 lg:hidden">
               <Button
                 variant="ghost"
                 size="icon"
@@ -341,7 +341,7 @@ function WorkspaceHeader({
             <Button
               variant="ghost"
               size="sm"
-              className="gap-1.5 text-xs sm:gap-2 sm:text-sm"
+              className="gap-2 text-xs sm:gap-3 sm:text-sm"
               onClick={toggleSpeechSelector}
             >
               {showSpeechSelector ? (
@@ -425,7 +425,7 @@ function ControlsCard({ controller }: ControlsCardProps) {
                 onClick={controller.resetPlayback}
                 variant="outline"
                 size="sm"
-                className="gap-1.5 text-xs sm:gap-2 sm:text-sm"
+                className="gap-2 text-xs sm:gap-3 sm:text-sm"
                 disabled={!hasSpeech}
               >
                 <RotateCcw className="size-3 sm:size-4" />
@@ -443,7 +443,7 @@ function ControlsCard({ controller }: ControlsCardProps) {
                 onClick={controller.togglePlayback}
                 disabled={!hasSpeech}
                 size="lg"
-                className="gap-1.5 px-4 text-sm sm:gap-2 sm:px-6 sm:text-base"
+                className="gap-2 px-4 text-sm sm:gap-3 sm:px-6 sm:text-base"
               >
                 {controller.isPlaying ? (
                   <>
@@ -469,7 +469,7 @@ function ControlsCard({ controller }: ControlsCardProps) {
                 onClick={controller.selectRandomSpeech}
                 variant="outline"
                 size="sm"
-                className="gap-1.5 text-xs sm:gap-2 sm:text-sm"
+                className="gap-2 text-xs sm:gap-3 sm:text-sm"
               >
                 <Shuffle className="size-3 sm:size-4" />
                 <span className="hidden sm:inline">Random script</span>
@@ -628,15 +628,15 @@ function WelcomeCard() {
           Adjust WPM and font size, then rehearse until the bar reaches 100%.
         </p>
         <div className="flex flex-wrap justify-center gap-3 text-xs text-muted-foreground sm:gap-4 sm:text-sm">
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-2 sm:gap-3">
             <PlayCircle className="size-3 text-primary sm:size-4" />
             Play or pause the scroll
           </div>
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-2 sm:gap-3">
             <RotateCcw className="size-3 text-primary sm:size-4" />
             Reset when you restart
           </div>
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Shuffle className="size-3 text-primary sm:size-4" />
             Randomize for variety
           </div>
